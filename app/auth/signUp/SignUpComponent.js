@@ -10,6 +10,7 @@ import AppleLogo from "@/public/apple.svg";
 import Input from "@/app/components/Input";
 import Button from "@/app/components/Button";
 import AuthProviderButton from "@/app/components/AuthProviderButton";
+import Message from "@/app/components/Message";
 
 // Next
 import Link from "next/link";
@@ -21,20 +22,25 @@ import signUpWithEmailPassword from "../functions/signUpWithEmailPassword";
 function SignUpComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        signUpWithEmailPassword(email, password);
+        signUpWithEmailPassword(email, password, setMessage, setMessageType);
       }}
-      className="w-full p-8 flex flex-col items-center"
+      className="w-full p-8 flex flex-col items-center space-y-4"
     >
-      <p className="text-2xl font-semibold">Welcome to Ptolemy</p>
-      <p className="text-md">Let's make education inspiring.</p>
+      {/* Welcome Text */}
+      <div className="w-full flex-col justify-center items-center text-center">
+        <p className="text-2xl font-semibold">Welcome to Ptolemy</p>
+        <p className="text-md">Let's make education inspiring.</p>
+      </div>
 
       {/* Auth Providers */}
-      <div className="flex my-4 space-x-4">
+      <div className="flex space-x-4">
         <AuthProviderButton Icon={GoogleLogo} onClick={signInWithGoogle} />
         <AuthProviderButton Icon={AppleLogo} />
       </div>
@@ -47,7 +53,7 @@ function SignUpComponent() {
       </div>
 
       {/* Input Area */}
-      <div className="w-full my-4 flex flex-col space-y-4">
+      <div className="w-full flex flex-col space-y-4">
         <Input
           type="Email"
           placeholder="Enter your email..."
@@ -64,11 +70,18 @@ function SignUpComponent() {
         />
       </div>
 
+      {/* Server Message */}
+      {message != "" ? (
+        <Message message={message} messageType={messageType} />
+      ) : null}
+
+      {/* Sign in Button */}
       <Button type="primary" className="w-full" submit>
         Sign Up
       </Button>
 
-      <p className="mt-4 text-sm">
+      {/* End Message */}
+      <p className="text-sm">
         Already have an account?{" "}
         <b>
           <Link href={"signIn"}>Sign In</Link>

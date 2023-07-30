@@ -11,7 +11,7 @@ function signInWithGoogle() {
       console.log(result);
     })
     .catch((error) => {
-      console.log(error);
+      console.log(error.message);
     });
 }
 
