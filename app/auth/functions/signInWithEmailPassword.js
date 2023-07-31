@@ -1,16 +1,21 @@
 import { auth } from "@/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-function signInWithEmailPassword(email, password, setMessage, setMessageType) {
+function signInWithEmailPassword(
+  email,
+  password,
+  setMessage,
+  setMessageType,
+  setLoading
+) {
+  setLoading(true);
   signInWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
-      console.log(userCredential);
       setMessage("Sign in successful!");
       setMessageType("success");
+      setLoading(false);
     })
     .catch((error) => {
-      console.log(error.code);
-
       if (error.code === "auth/too-many-requests") {
         setMessage("Too many requests. Please try again after a while.");
       }
@@ -23,6 +28,7 @@ function signInWithEmailPassword(email, password, setMessage, setMessageType) {
         setMessage("There is no account under this email. Please sign up.");
       }
 
+      setLoading(false);
       setMessageType("error");
     });
 }

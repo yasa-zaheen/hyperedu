@@ -24,12 +24,19 @@ function SignInComponent() {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState("");
+  const [loading, setLoading] = useState(false);
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        signInWithEmailPassword(email, password, setMessage, setMessageType);
+        signInWithEmailPassword(
+          email,
+          password,
+          setMessage,
+          setMessageType,
+          setLoading
+        );
       }}
       className="w-full p-8 flex flex-col items-center space-y-4"
     >
@@ -78,12 +85,10 @@ function SignInComponent() {
       </div>
 
       {/* Server Message */}
-      {message != "" ? (
-        <Message message={message} messageType={messageType} />
-      ) : null}
+      <Message message={message} messageType={messageType} />
 
       {/* Sign in Button */}
-      <Button type="primary" className="w-full" submit>
+      <Button className="w-full btn-primary" submit loading={loading}>
         Sign In
       </Button>
 

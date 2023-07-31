@@ -1,15 +1,24 @@
 import { auth } from "@/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-function signUpWithEmailPassword(email, password, setMessage, setMessageType) {
+function signUpWithEmailPassword(
+  email,
+  password,
+  setMessage,
+  setMessageType,
+  setLoading
+) {
+  setLoading(true);
   createUserWithEmailAndPassword(auth, email, password)
     .then((userCredential) => {
       console.log(userCredential);
       setMessage("Sign up successful!");
       setMessageType("success");
+      setLoading(false);
     })
     .catch((error) => {
       console.log(error.code);
+      setLoading(false);
 
       if (error.code === "auth/email-already-in-use") {
         setMessage(
