@@ -22,21 +22,16 @@ import signInWithEmailPassword from "../functions/signInWithEmailPassword";
 function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [message, setMessage] = useState("");
-  const [messageType, setMessageType] = useState("");
+
+  const [serverMessage, setServerMessage] = useState({ message: "", type: "" });
+
   const [loading, setLoading] = useState(false);
 
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
-        signInWithEmailPassword(
-          email,
-          password,
-          setMessage,
-          setMessageType,
-          setLoading
-        );
+        signInWithEmailPassword(email, password, setLoading, setServerMessage);
       }}
       className="w-full p-8 flex flex-col items-center space-y-4"
     >
@@ -85,7 +80,7 @@ function SignInComponent() {
       </div>
 
       {/* Server Message */}
-      <ServerMessageMessage message={message} messageType={messageType} />
+      <ServerMessage serverMessage={serverMessage} />
 
       {/* Sign in Button */}
       <Button className="w-full btn-primary" submit loading={loading}>

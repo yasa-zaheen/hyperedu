@@ -4,39 +4,39 @@ import { createUserWithEmailAndPassword } from "firebase/auth";
 function signUpWithEmailPassword(
   email,
   password,
-  setMessage,
-  setMessageType,
-  setLoading
+  setLoading,
+  setServerMessage
 ) {
   setLoading(true);
   createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-      console.log(userCredential);
-      setMessage("Sign up successful!");
-      setMessageType("success");
+    .then(() => {
+      setServerMessage({ message: "Sign up successful!", type: "success" });
       setLoading(false);
     })
     .catch((error) => {
-      console.log(error.code);
-      setLoading(false);
-
       if (error.code === "auth/email-already-in-use") {
-        setMessage(
-          "An account already exists under this email. Please sign in."
-        );
+        setServerMessage({
+          message:
+            "An account already exists under this email. Please sign in.",
+          type: "error",
+        });
       }
 
       if (error.code === "auth/invalid-email") {
-        setMessage("Please enter a valid email.");
+        setServerMessage({
+          message: "Please enter a valid email.",
+          type: "error",
+        });
       }
 
       if (error.code === "auth/weak-password") {
-        setMessage(
-          "Invalid password. Password must contain atleast 6 characters."
-        );
+        setServerMessage({
+          message:
+            "Invalid password. Password must contain atleast 6 characters.",
+          type: "error",
+        });
       }
-
-      setMessageType("error");
+      setLoading(false);
     });
 }
 export default signUpWithEmailPassword;

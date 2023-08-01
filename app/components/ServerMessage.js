@@ -1,7 +1,10 @@
 import { useRef, useEffect } from "react";
 
-function ServerMessage({ className, message, messageType }) {
+function ServerMessage({ className, serverMessage }) {
   const reference = useRef();
+
+  let message = serverMessage.message;
+  let messageType = serverMessage.type;
 
   useEffect(() => {
     const messageElement = reference.current;
@@ -22,7 +25,7 @@ function ServerMessage({ className, message, messageType }) {
       messageElement.classList.remove("p-2", "h-fit", "text-md");
       messageElement.classList.add("p-0", "h-0", "text-[0px]");
     }
-  }, [message, messageType]);
+  }, [serverMessage]);
 
   return (
     <div
@@ -34,4 +37,4 @@ function ServerMessage({ className, message, messageType }) {
   );
 }
 
-export default ServerMessageMessage;
+export default ServerMessage;
