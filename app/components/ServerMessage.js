@@ -1,6 +1,6 @@
 import { useRef, useEffect } from "react";
 
-function Message({ className, message, messageType }) {
+function ServerMessage({ className, message, messageType }) {
   const reference = useRef();
 
   useEffect(() => {
@@ -34,4 +34,4 @@ function Message({ className, message, messageType }) {
   );
 }
 
-export default Message;
+export default ServerMessageMessage;

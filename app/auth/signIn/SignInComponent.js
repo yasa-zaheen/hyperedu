@@ -10,7 +10,7 @@ import AppleLogo from "@/public/apple.svg";
 import Input from "@/app/components/Input";
 import Button from "@/app/components/Button";
 import AuthProviderButton from "@/app/components/AuthProviderButton";
-import Message from "@/app/components/Message";
+import ServerMessage from "@/app/components/ServerMessage";
 
 // Next
 import Link from "next/link";
@@ -85,7 +85,7 @@ function SignInComponent() {
       </div>
 
       {/* Server Message */}
-      <Message message={message} messageType={messageType} />
+      <ServerMessageMessage message={message} messageType={messageType} />
 
       {/* Sign in Button */}
       <Button className="w-full btn-primary" submit loading={loading}>
