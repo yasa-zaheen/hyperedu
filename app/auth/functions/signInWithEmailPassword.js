@@ -7,25 +7,31 @@ function signInWithEmailPassword(email, password, setServerMessage) {
       setServerMessage({ message: "Sign in successful", type: "success" });
     })
     .catch((error) => {
-      if (error.code === "auth/too-many-requests") {
-        setServerMessage({
-          message: "Too many requests. Please try again after a while.",
-          type: "error",
-        });
-      }
-
-      if (error.code === "auth/wrong-password") {
-        setServerMessage({
-          message: "Password Incorrect. Please try again.",
-          type: "error",
-        });
-      }
-
-      if (error.code === "auth/user-not-found") {
-        setServerMessage({
-          message: "There is no account under this email. Please sign up.",
-          type: "error",
-        });
+      switch (error.code) {
+        case "auth/too-many-requests":
+          setServerMessage({
+            message: "Too many requests. Please try again after a while.",
+            type: "error",
+          });
+          break;
+        case "auth/wrong-password":
+          setServerMessage({
+            message: "Password Incorrect. Please try again.",
+            type: "error",
+          });
+          break;
+        case "auth/user-not-found":
+          setServerMessage({
+            message: "There is no account under this email. Please sign up.",
+            type: "error",
+          });
+          break;
+        default:
+          setServerMessage({
+            message: error.code,
+            type: "error",
+          });
+          break;
       }
     });
 }
