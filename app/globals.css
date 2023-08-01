@@ -12,4 +12,7 @@
     .btn-disabled{
       @apply pointer-events-none
     }
+    .link{
+      @apply hover:underline decoration-blue-500 decoration-2 duration-100 ease-in-out
+    }
   }

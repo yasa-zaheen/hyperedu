@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Assets
 import GoogleLogo from "@/public/google.svg";
@@ -22,15 +22,23 @@ import signUpWithEmailPassword from "../functions/signUpWithEmailPassword";
 function SignUpComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
   const [loading, setLoading] = useState(false);
   const [serverMessage, setServerMessage] = useState({ message: "", type: "" });
 
+  useEffect(() => {
+    setLoading(false);
+  }, [serverMessage]);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    signUpWithEmailPassword(email, password, setServerMessage);
+  };
+
   return (
     <form
-      onSubmit={async (e) => {
-        e.preventDefault();
-        signUpWithEmailPassword(email, password, setLoading, setServerMessage);
-      }}
+      onSubmit={handleFormSubmit}
       className="w-full p-8 flex flex-col items-center space-y-4"
     >
       {/* Welcome Text */}
@@ -81,7 +89,7 @@ function SignUpComponent() {
       {/* End Message */}
       <p className="text-sm">
         Already have an account?{" "}
-        <b>
+        <b className="link">
           <Link href={"signIn"}>Sign In</Link>
         </b>
       </p>

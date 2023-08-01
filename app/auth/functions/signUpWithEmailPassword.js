@@ -1,17 +1,10 @@
 import { auth } from "@/firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 
-function signUpWithEmailPassword(
-  email,
-  password,
-  setLoading,
-  setServerMessage
-) {
-  setLoading(true);
+function signUpWithEmailPassword(email, password, setServerMessage) {
   createUserWithEmailAndPassword(auth, email, password)
     .then(() => {
       setServerMessage({ message: "Sign up successful!", type: "success" });
-      setLoading(false);
     })
     .catch((error) => {
       if (error.code === "auth/email-already-in-use") {
@@ -36,7 +29,6 @@ function signUpWithEmailPassword(
           type: "error",
         });
       }
-      setLoading(false);
     });
 }
 export default signUpWithEmailPassword;

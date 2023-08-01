@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 // Assets
 import GoogleLogo from "@/public/google.svg";
@@ -23,16 +23,22 @@ function SignInComponent() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
+  const [loading, setLoading] = useState(false);
   const [serverMessage, setServerMessage] = useState({ message: "", type: "" });
 
-  const [loading, setLoading] = useState(false);
+  useEffect(() => {
+    setLoading(false);
+  }, [serverMessage]);
+
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    setLoading(true);
+    signInWithEmailPassword(email, password, setServerMessage);
+  };
 
   return (
     <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        signInWithEmailPassword(email, password, setLoading, setServerMessage);
-      }}
+      onSubmit={handleFormSubmit}
       className="w-full p-8 flex flex-col items-center space-y-4"
     >
       {/* Welcome Text */}
@@ -72,10 +78,10 @@ function SignInComponent() {
         />
         <div className="flex items-center justify-between w-full font-semibold text-sm">
           <div className="flex items-center justify-center space-x-2">
-            <input type="checkbox" name="" id="" />
+            <input type="checkbox" />
             <p>Remember Me</p>
           </div>
-          <p>Forgot Password?</p>
+          <p className="link">Forgot Password?</p>
         </div>
       </div>
 
@@ -90,7 +96,7 @@ function SignInComponent() {
       {/* End Message */}
       <p className="text-sm">
         Don't have an account yet?{" "}
-        <b>
+        <b className="link">
           <Link href={"signUp"}>Sign Up</Link>
         </b>
       </p>

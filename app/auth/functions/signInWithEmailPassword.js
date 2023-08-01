@@ -1,18 +1,10 @@
 import { auth } from "@/firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
-function signInWithEmailPassword(
-  email,
-  password,
-  setLoading,
-  setServerMessage
-) {
-  setLoading(true);
-
+function signInWithEmailPassword(email, password, setServerMessage) {
   signInWithEmailAndPassword(auth, email, password)
     .then(() => {
       setServerMessage({ message: "Sign in successful", type: "success" });
-      setLoading(false);
     })
     .catch((error) => {
       if (error.code === "auth/too-many-requests") {
@@ -35,8 +27,6 @@ function signInWithEmailPassword(
           type: "error",
         });
       }
-
-      setLoading(false);
     });
 }
 export default signInWithEmailPassword;
