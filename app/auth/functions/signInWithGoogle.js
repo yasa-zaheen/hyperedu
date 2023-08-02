@@ -1,17 +1,19 @@
 import { auth } from "@/firebase";
 import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
-function signInWithGoogle() {
+function signInWithGoogle(setServerMessage) {
   const provider = new GoogleAuthProvider();
   auth.useDeviceLanguage();
 
   signInWithPopup(auth, provider)
-    .then((result) => {
-      console.log("User signed in");
-      console.log(result);
+    .then(() => {
+      setServerMessage({ message: "Sign in successful!", type: "success" });
     })
     .catch((error) => {
-      console.log(error.message);
+      setServerMessage({
+        message: error.code,
+        type: "error",
+      });
     });
 }
 

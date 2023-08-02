@@ -11,6 +11,7 @@ import Input from "@/app/components/Input";
 import Button from "@/app/components/Button";
 import AuthProviderButton from "@/app/components/AuthProviderButton";
 import ServerMessage from "@/app/components/ServerMessage";
+import Divider from "@/app/components/Divider";
 
 // Next
 import Link from "next/link";
@@ -43,22 +44,23 @@ function SignUpComponent() {
     >
       {/* Welcome Text */}
       <div className="w-full flex-col justify-center items-center text-center">
-        <p className="text-2xl font-semibold">Welcome to Ptolemy</p>
-        <p className="text-md">Let's make education inspiring.</p>
+        <p className="title">Welcome to Ptolemy</p>
+        <p>Let's make education inspiring.</p>
       </div>
 
       {/* Auth Providers */}
       <div className="flex space-x-4">
-        <AuthProviderButton Icon={GoogleLogo} onClick={signInWithGoogle} />
+        <AuthProviderButton
+          Icon={GoogleLogo}
+          onClick={() => {
+            signInWithGoogle(setServerMessage);
+          }}
+        />
         <AuthProviderButton Icon={AppleLogo} />
       </div>
 
       {/* Divider */}
-      <div className="w-full flex items-center justify-center text-xs">
-        <hr className="flex-1 border-gray-300" />
-        <p className="mx-2 text-gray-300">OR</p>
-        <hr className="flex-1 border-gray-300" />
-      </div>
+      <Divider text={"OR"} />
 
       {/* Input Area */}
       <div className="w-full flex flex-col space-y-4">
