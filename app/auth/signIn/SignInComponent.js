@@ -78,12 +78,14 @@ function SignInComponent() {
           value={password}
           setValue={setPassword}
         />
-        <div className="flex items-center justify-between w-full font-semibold text-sm">
-          <div className="flex items-center justify-center space-x-2">
+        <div className="flex items-center justify-between w-full text-sm">
+          <div className="flex items-center justify-center font-semibold space-x-2">
             <input type="checkbox" />
             <p>Remember Me</p>
           </div>
-          <p className="link">Forgot Password?</p>
+          <b className="link">
+            <Link href={"forgotPassword"}>Forgot Password</Link>
+          </b>
         </div>
       </div>
 
